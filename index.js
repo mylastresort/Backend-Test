@@ -1,10 +1,6 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import listingroutes from './routes/listings.js';
-// import cors from 'cors'
-// import cors from 'express-cors'
-// const cors=require('cors')
-// import demo from './routes/demo.js'
+const express=require( 'express');
+const bodyParser=require( 'body-parser');
+const listingroutes=require( './routes/listings.js');
 
 
 const app=express();
@@ -20,7 +16,8 @@ app.use((req,res,next)=>{
 })
 app.use(bodyParser.json());
 app.use('/listings',listingroutes)
-// app.use('/listings/demo',demo)
+// to return a given numebr of listings do this:
+// http://localhost:2222/listings?n=<givenNumber>
 
 
 app.listen(PORT,()=>{
