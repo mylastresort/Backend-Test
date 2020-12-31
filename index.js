@@ -16,8 +16,6 @@ app.use((req,res,next)=>{
 })
 app.use(bodyParser.json());
 app.use('/listings',listingroutes)
-// to return a given numebr of listings do this:
-// http://localhost:2222/listings?n=<givenNumber>
 
 
 app.listen(PORT,()=>{
