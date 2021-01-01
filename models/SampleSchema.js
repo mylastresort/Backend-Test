@@ -1,21 +1,21 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
 
 
-module.exports=mongoose.model('Sample',{
-  title:{
+module.exports = mongoose.model('Sample', {
+  title: {
     type: String,
     required: true
   },
-  price:{
-    type:Number,
-    required:true
+  price: {
+    type: Number,
+    required: true
   },
-  date:{
-    type:Date,
-    default:Date.now
+  date: {
+    type: Date,
+    default: Date.now
   },
-  description:{
-    type:String,
-    required:false
+  description: {
+    type: String,
+    required: false
   }
 })
