@@ -1,11 +1,3 @@
-function check(element) {
-  const { title, price, date, description } = element;
-  if (!!title && !!price && !!date) {
-    if (!description) return { title, price, date }
-    return { title, price, date, description }
-  }
-  return 'some fields are missing!!'
-}
 function sum(...e) {
   let sum = 0
   for (const i of e) sum += i
@@ -42,6 +34,12 @@ function getAverage(list, type) {
     const currentday = new Date().getDay()
     for (const key in list) {
       if (list[key].date.getDate() >= currentday) sum++
+    }
+    return Number.parseFloat(sum / 7).toFixed(2)
+  } else if(type === 'weeksprice'){
+    const currentday=new Date().getDay()
+    for (const i in list) {
+      if (list[i].date.getDate() >= currentday) sum+=list[i].price
     }
     return Number.parseFloat(sum / 7).toFixed(2)
 
@@ -104,7 +102,6 @@ function findTheDay(element) {
 
 
 module.exports = {
-  check,
   sum,
   getTheFeed,
   getAverage,
