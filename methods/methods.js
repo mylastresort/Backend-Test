@@ -14,7 +14,7 @@ async function createProduct(req, res) {
     res.send(`${title} was created`)
   } catch (error) {
     if (error.errors.price.path === "price") {
-      if (error.errors.price.kind === "Number") res.send(`${errors.price.value} is not a number`)
+      if (error.errors.price.kind === "Number") res.send(`${error.errors.price.value} is not a number`)
       if (error.errors.price.kind === "required") res.send(`the price was not mentioned`)
     } else res.send(error)
   }
@@ -54,7 +54,7 @@ async function updateProduct(req, res) {
     res.send(`${title} was updated`)
   } catch (error) {
     if (error.errors.price.path === "price") {
-      if (error.errors.price.kind === "Number") res.send(`${errors.price.value} is not a number`)
+      if (error.errors.price.kind === "Number") res.send(`${error.errors.price.value} is not a number`)
       if (error.errors.price.kind === "required") res.send(`the price was not mentioned`)
     } else res.send(error)
   }
