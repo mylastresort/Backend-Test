@@ -9,21 +9,20 @@ const { sum, getTheFeed, getAverage, findTheDay } = require('../methods/function
 async function createProduct(req, res) {
   const { title, price, description } = req.body
   try {
-    const product = new Sample({title, price, description, id: uuidv4() })
+    const product = new Sample({ title, price, description, id: uuidv4() })
     await product.save()
     res.send(`${title} was created`)
   } catch (error) {
-    if(error.errors.price.path === "price" ) {
-      if(error.errors.price.kind==="Number") res.send(`${errors.price.value} is not a number`)
-      if(error.errors.price.kind==="required") res.send(`the price was not mentioned`)
+    if (error.errors.price.path === "price") {
+      if (error.errors.price.kind === "Number") res.send(`${errors.price.value} is not a number`)
+      if (error.errors.price.kind === "required") res.send(`the price was not mentioned`)
     } else res.send(error)
   }
 }
 
-async function returnProcudt(req, res) {
+async function returnProduct(req, res) {
   try {
-    const productRequested = await Sample.findById(req.params.id)
-    res.send(productRequested)
+    res.send(await Sample.findById(req.params.id))
   } catch (error) {
     res.send(error)
   }
@@ -46,7 +45,7 @@ async function updateProduct(req, res) {
       { _id: req.params.id },
       { $set: { title, price } }
     )
-    if (!description) {
+    if (!!description) {
       await Sample.updateOne(
         { _id: req.params.id },
         { $set: { description } }
@@ -54,9 +53,9 @@ async function updateProduct(req, res) {
     }
     res.send(`${title} was updated`)
   } catch (error) {
-    if(error.errors.price.path === "price" ) {
-      if(error.errors.price.kind==="Number") res.send(`${errors.price.value} is not a number`)
-      if(error.errors.price.kind==="required") res.send(`the price was not mentioned`)
+    if (error.errors.price.path === "price") {
+      if (error.errors.price.kind === "Number") res.send(`${errors.price.value} is not a number`)
+      if (error.errors.price.kind === "required") res.send(`the price was not mentioned`)
     } else res.send(error)
   }
 }
@@ -65,8 +64,9 @@ async function updateProduct(req, res) {
 
 async function demo(req, res) {
   try {
+    const list = (await Sample.find()).reverse()
     if (!!req.query.n) {
-      res.send(await Sample.find().limit(parseInt(req.query.n)))
+      res.send(list.slice(0, parseInt(req.query.n)))
       return;
       //*Return a given number of listings, for example n = 10. This number will be different depending on requests and should be passed in a query string. ✓
     }
@@ -75,7 +75,6 @@ async function demo(req, res) {
     client.connect(async err => {
       const collection = client.db("Cluster0").collection("samples");
       const { size, storageSize } = await collection.stats()
-      const list = (await Sample.find()).reverse()
       res.json({
         totalPosts: await Sample.find().countDocuments(),
         cheapestProduct: Math.min(...prices),
@@ -106,7 +105,7 @@ async function demo(req, res) {
 
 module.exports = {
   createProduct,
-  returnProcudt,
+  returnProduct,
   removeProduct,
   updateProduct,
   demo

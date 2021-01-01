@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { createProduct, returnProcudt, removeProduct, updateProduct, demo } = require('../methods/methods.js')
+const { createProduct, returnProduct, removeProduct, updateProduct, demo } = require('../methods/methods.js')
 
 
 
@@ -14,7 +14,7 @@ mongoose.connect(process.env.DB_CONNECTION,
 
 
 router.route('/:id')
-  .get(returnProcudt)       //*Return a specific product listing. ✓
+  .get(returnProduct)       //*Return a specific product listing. ✓
   .delete(removeProduct)        //*Delete an existing product listing. ✓
   .patch(updateProduct)       //*Update an existing product listing. ✓
 
