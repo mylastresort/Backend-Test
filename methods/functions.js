@@ -86,8 +86,8 @@ function getAverage(list, type) {
 function findTheDay(days) {
   let ceiling = new Array();
   let max = Math.max(...days);
-  for (const sum in summary) {
-    if (days[sum] === max) ceiling.push(s);
+  for (const sum in days) {
+    if (days[sum] === max) ceiling.push(sum);
   };
   let ceilingConverted = new Array();
   for (const day of ceiling) {
