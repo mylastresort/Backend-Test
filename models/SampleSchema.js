@@ -18,4 +18,4 @@ module.exports = mongoose.model('Sample', {
     type: String,
     required: false
   }
-})
+});
